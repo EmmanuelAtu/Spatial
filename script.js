@@ -1,415 +1,836 @@
-/* =========================================================
-   NOVA CORE
-   Three.js Interactive 3D Core
-   ========================================================= */
+// ============================================================
+// NOVA CORE — MOBILE NAVIGATION
+// ============================================================
 
-const container = document.getElementById("three-container");
+(() => {
+    const toggle = document.querySelector(".nav-toggle");
+    const menu = document.getElementById("mobile-nav");
+    if (!toggle || !menu) return;
 
+    const close = () => {
+        toggle.setAttribute("aria-expanded", "false");
+        menu.hidden = true;
+    };
 
-// =========================================================
-// SCENE
-// =========================================================
+    toggle.addEventListener("click", () => {
+        const isOpen = toggle.getAttribute("aria-expanded") === "true";
+        toggle.setAttribute("aria-expanded", String(!isOpen));
+        menu.hidden = isOpen;
+    });
 
-const scene = new THREE.Scene();
+    menu.addEventListener("click", (event) => {
+        if (event.target.tagName === "A") close();
+    });
 
-
-// =========================================================
-// CAMERA
-// =========================================================
-
-const camera = new THREE.PerspectiveCamera(
-    45,
-    container.clientWidth / container.clientHeight,
-    0.1,
-    1000
-);
-
-camera.position.z = 5;
-
-
-// =========================================================
-// RENDERER
-// =========================================================
-
-const renderer = new THREE.WebGLRenderer({
-    antialias: true,
-    alpha: true
-});
-
-renderer.setPixelRatio(
-    Math.min(window.devicePixelRatio, 2)
-);
-
-renderer.setSize(
-    container.clientWidth,
-    container.clientHeight
-);
-
-container.appendChild(renderer.domElement);
+    document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") close();
+    });
+})();
 
 
-// =========================================================
-// NOVA CORE GROUP
-// =========================================================
+// ============================================================
+// NOVA CORE — THREE.JS EXPERIENCE
+// Deep Space / Electric Cyan
+// ============================================================
 
-const core = new THREE.Group();
-
-scene.add(core);
-
-
-// =========================================================
-// MAIN WIREFRAME SPHERE
-// =========================================================
-
-const sphereGeometry = new THREE.IcosahedronGeometry(
-    1.55,
-    4
-);
-
-const sphereMaterial = new THREE.MeshBasicMaterial({
-    color: 0x10b981,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.48
-});
-
-const sphere = new THREE.Mesh(
-    sphereGeometry,
-    sphereMaterial
-);
-
-core.add(sphere);
+const container =
+    document.getElementById("three-container");
 
 
-// =========================================================
-// SECONDARY INNER SPHERE
-// =========================================================
+if (!container) {
 
-const innerGeometry = new THREE.IcosahedronGeometry(
-    1.18,
-    2
-);
+    console.warn(
+        "Nova Core: #three-container was not found."
+    );
 
-const innerMaterial = new THREE.MeshBasicMaterial({
-    color: 0x00ffcc,
-    wireframe: true,
-    transparent: true,
-    opacity: 0.18
-});
+} else if (typeof THREE === "undefined") {
 
-const innerSphere = new THREE.Mesh(
-    innerGeometry,
-    innerMaterial
-);
+    console.error(
+        "Nova Core: Three.js failed to load."
+    );
 
-core.add(innerSphere);
+} else {
 
 
-// =========================================================
-// OUTER ORBIT RINGS
-// =========================================================
+    // ========================================================
+    // 01. SCENE
+    // ========================================================
 
-function createRing(radius, rotation) {
+    const scene = new THREE.Scene();
 
-    const geometry =
-        new THREE.TorusGeometry(
-            radius,
-            0.008,
-            8,
-            120
+
+    // ========================================================
+    // 02. CAMERA
+    // ========================================================
+
+    const camera =
+        new THREE.PerspectiveCamera(
+            38,
+            container.clientWidth /
+                container.clientHeight,
+            0.1,
+            100
         );
 
-    const material =
-        new THREE.MeshBasicMaterial({
-            color: 0x00ffcc,
-            transparent: true,
-            opacity: 0.45
+    camera.position.set(
+        0,
+        0,
+        5
+    );
+
+
+    // ========================================================
+    // 03. RENDERER
+    // ========================================================
+
+    const renderer =
+        new THREE.WebGLRenderer({
+            alpha: true,
+            antialias: true,
+            powerPreference: "high-performance"
         });
+
+
+    renderer.setPixelRatio(
+        Math.min(
+            window.devicePixelRatio,
+            1.75
+        )
+    );
+
+
+    renderer.setSize(
+        container.clientWidth,
+        container.clientHeight
+    );
+
+
+    renderer.setClearColor(
+        0x000000,
+        0
+    );
+
+
+    renderer.outputColorSpace =
+        THREE.SRGBColorSpace;
+
+
+    container.appendChild(
+        renderer.domElement
+    );
+
+
+    // ========================================================
+    // 04. MAIN CORE GROUP
+    // ========================================================
+
+    const coreGroup =
+        new THREE.Group();
+
+    scene.add(coreGroup);
+
+
+    // ========================================================
+    // 05. MAIN NOVA CORE
+    // ========================================================
+
+    const coreGeometry =
+        new THREE.IcosahedronGeometry(
+            1.45,
+            3
+        );
+
+
+    const coreMaterial =
+        new THREE.MeshBasicMaterial({
+
+            color: 0x22d3ee,
+
+            wireframe: true,
+
+            transparent: true,
+
+            opacity: 0.48
+        });
+
+
+    const core =
+        new THREE.Mesh(
+            coreGeometry,
+            coreMaterial
+        );
+
+
+    coreGroup.add(core);
+
+
+    // ========================================================
+    // 06. INNER CORE
+    // ========================================================
+
+    const innerGeometry =
+        new THREE.IcosahedronGeometry(
+            1.06,
+            2
+        );
+
+
+    const innerMaterial =
+        new THREE.MeshBasicMaterial({
+
+            color: 0xa5f3fc,
+
+            wireframe: true,
+
+            transparent: true,
+
+            opacity: 0.13
+        });
+
+
+    const innerCore =
+        new THREE.Mesh(
+            innerGeometry,
+            innerMaterial
+        );
+
+
+    innerCore.rotation.x =
+        0.45;
+
+    innerCore.rotation.y =
+        0.65;
+
+
+    coreGroup.add(
+        innerCore
+    );
+
+
+    // ========================================================
+    // 07. OUTER RING
+    // ========================================================
+
+    const ringGeometry =
+        new THREE.TorusGeometry(
+            1.82,
+            0.008,
+            8,
+            96
+        );
+
+
+    const ringMaterial =
+        new THREE.MeshBasicMaterial({
+
+            color: 0x22d3ee,
+
+            transparent: true,
+
+            opacity: 0.20
+        });
+
 
     const ring =
         new THREE.Mesh(
-            geometry,
-            material
+            ringGeometry,
+            ringMaterial
         );
 
-    ring.rotation.x = rotation.x;
-    ring.rotation.y = rotation.y;
-    ring.rotation.z = rotation.z;
 
-    core.add(ring);
-
-    return ring;
-}
+    ring.rotation.x =
+        Math.PI / 2.3;
 
 
-const ringOne = createRing(
-    1.95,
-    {
-        x: Math.PI / 2.5,
-        y: 0.3,
-        z: 0
-    }
-);
-
-const ringTwo = createRing(
-    2.1,
-    {
-        x: 0.5,
-        y: Math.PI / 2,
-        z: 0.5
-    }
-);
-
-const ringThree = createRing(
-    2.25,
-    {
-        x: 1,
-        y: 0.3,
-        z: 0.7
-    }
-);
-
-
-// =========================================================
-// PARTICLE FIELD
-// =========================================================
-
-const particleCount = 900;
-
-const particleGeometry =
-    new THREE.BufferGeometry();
-
-const particlePositions =
-    new Float32Array(
-        particleCount * 3
+    coreGroup.add(
+        ring
     );
 
-for (let i = 0; i < particleCount; i++) {
 
-    const radius =
-        2.3 + Math.random() * 1.8;
+    // ========================================================
+    // 08. SECOND RING
+    // ========================================================
 
-    const theta =
-        Math.random() * Math.PI * 2;
-
-    const phi =
-        Math.acos(
-            (Math.random() * 2) - 1
+    const ring2Geometry =
+        new THREE.TorusGeometry(
+            1.62,
+            0.006,
+            8,
+            96
         );
 
-    particlePositions[i * 3] =
-        radius *
-        Math.sin(phi) *
-        Math.cos(theta);
 
-    particlePositions[i * 3 + 1] =
-        radius *
-        Math.sin(phi) *
-        Math.sin(theta);
+    const ring2Material =
+        new THREE.MeshBasicMaterial({
 
-    particlePositions[i * 3 + 2] =
-        radius *
-        Math.cos(phi);
-}
+            color: 0x6366f1,
 
-particleGeometry.setAttribute(
-    "position",
-    new THREE.BufferAttribute(
-        particlePositions,
-        3
-    )
-);
+            transparent: true,
 
-const particleMaterial =
-    new THREE.PointsMaterial({
-        color: 0x10b981,
-        size: 0.012,
-        transparent: true,
-        opacity: 0.5
-    });
+            opacity: 0.13
+        });
 
-const particles =
-    new THREE.Points(
-        particleGeometry,
-        particleMaterial
+
+    const ring2 =
+        new THREE.Mesh(
+            ring2Geometry,
+            ring2Material
+        );
+
+
+    ring2.rotation.y =
+        Math.PI / 2.6;
+
+
+    coreGroup.add(
+        ring2
     );
 
-core.add(particles);
+
+    // ========================================================
+    // 09. AMBIENT PARTICLES
+    // ========================================================
+
+    const particleCount = 150;
 
 
-// =========================================================
-// SCROLL STATE
-// =========================================================
-
-let scrollY = window.scrollY;
-
-let targetRotation = 0;
-let targetVertical = 0;
+    const particlePositions =
+        new Float32Array(
+            particleCount * 3
+        );
 
 
-// =========================================================
-// SCROLL LISTENER
-// =========================================================
+    for (
+        let i = 0;
+        i < particleCount;
+        i++
+    ) {
 
-window.addEventListener(
-    "scroll",
-    () => {
-
-        scrollY = window.scrollY;
-
-        /*
-         * Rotation:
-         *
-         * Every 100px of scrolling adds
-         * approximately 0.12 radians.
-         *
-         * This means scrolling down causes
-         * the Core to rotate continuously.
-         */
-
-        targetRotation =
-            scrollY * 0.0012;
+        const radius =
+            2.15 +
+            Math.random() * 1.7;
 
 
-        /*
-         * Vertical movement:
-         *
-         * Math.sin() produces a smooth
-         * floating movement as the user scrolls.
-         */
+        const theta =
+            Math.random() *
+            Math.PI *
+            2;
 
-        targetVertical =
-            Math.sin(scrollY * 0.003) * 0.45;
 
-    },
-    {
-        passive: true
+        const phi =
+            Math.acos(
+                (Math.random() * 2) - 1
+            );
+
+
+        particlePositions[
+            i * 3
+        ] =
+            radius *
+            Math.sin(phi) *
+            Math.cos(theta);
+
+
+        particlePositions[
+            i * 3 + 1
+        ] =
+            radius *
+            Math.sin(phi) *
+            Math.sin(theta);
+
+
+        particlePositions[
+            i * 3 + 2
+        ] =
+            radius *
+            Math.cos(phi);
     }
-);
 
 
-// =========================================================
-// ANIMATION LOOP
-// =========================================================
-
-let time = 0;
-
-function animate() {
-
-    requestAnimationFrame(animate);
-
-    time += 0.01;
+    const particleGeometry =
+        new THREE.BufferGeometry();
 
 
-    // -----------------------------------------------------
-    // 1. AUTONOMOUS ROTATION
-    // -----------------------------------------------------
+    particleGeometry.setAttribute(
 
-    core.rotation.y += 0.0025;
+        "position",
 
-    core.rotation.x += 0.0005;
-
-
-    // -----------------------------------------------------
-    // 2. SCROLL-BASED ROTATION
-    // -----------------------------------------------------
-
-    /*
-     * Smoothly approach the rotation dictated
-     * by scroll position.
-     */
-
-    core.rotation.y +=
-        (targetRotation - core.rotation.y) * 0.018;
-
-
-    // -----------------------------------------------------
-    // 3. SCROLL-BASED VERTICAL POSITION
-    // -----------------------------------------------------
-
-    const desiredY =
-        targetVertical +
-        Math.sin(time) * 0.08;
-
-    core.position.y +=
-        (desiredY - core.position.y) * 0.025;
-
-
-    // -----------------------------------------------------
-    // 4. INDIVIDUAL OBJECT ROTATION
-    // -----------------------------------------------------
-
-    innerSphere.rotation.y -= 0.003;
-    innerSphere.rotation.x += 0.001;
-
-    ringOne.rotation.z += 0.002;
-    ringTwo.rotation.x -= 0.0015;
-    ringThree.rotation.y += 0.001;
-
-    particles.rotation.y += 0.00025;
-
-
-    // -----------------------------------------------------
-    // 5. SUBTLE BREATHING EFFECT
-    // -----------------------------------------------------
-
-    const scale =
-        1 + Math.sin(time * 1.5) * 0.025;
-
-    core.scale.set(
-        scale,
-        scale,
-        scale
+        new THREE.BufferAttribute(
+            particlePositions,
+            3
+        )
     );
 
 
-    // -----------------------------------------------------
-    // RENDER
-    // -----------------------------------------------------
+    const particleMaterial =
+        new THREE.PointsMaterial({
 
-    renderer.render(
-        scene,
-        camera
+            color: 0x67e8f9,
+
+            size: 0.016,
+
+            transparent: true,
+
+            opacity: 0.32,
+
+            sizeAttenuation: true
+        });
+
+
+    const particles =
+        new THREE.Points(
+            particleGeometry,
+            particleMaterial
+        );
+
+
+    coreGroup.add(
+        particles
+    );
+
+
+    // ========================================================
+    // 10. INITIAL POSITION
+    // ========================================================
+
+    coreGroup.position.set(
+        0.55,
+        0,
+        0
+    );
+
+
+    coreGroup.scale.setScalar(
+        0.92
+    );
+
+
+    // ========================================================
+    // 11. RESPONSIVE STATE
+    // ========================================================
+
+    let isMobile =
+        window.innerWidth <= 800;
+
+
+    function updateResponsiveSettings() {
+
+        isMobile =
+            window.innerWidth <= 800;
+
+
+        if (isMobile) {
+
+            coreGroup.position.x =
+                0.95;
+
+        } else {
+
+            coreGroup.position.x =
+                0.55;
+        }
+    }
+
+
+    updateResponsiveSettings();
+
+
+    // ========================================================
+    // 12. SCROLL STATE
+    // ========================================================
+
+    let targetScroll =
+        window.scrollY;
+
+
+    let currentScroll =
+        window.scrollY;
+
+
+    window.addEventListener(
+
+        "scroll",
+
+        () => {
+
+            targetScroll =
+                window.scrollY;
+
+        },
+
+        {
+            passive: true
+        }
+    );
+
+
+    // ========================================================
+    // 13. SMOOTH INTERPOLATION
+    // ========================================================
+
+    function lerp(
+        start,
+        end,
+        amount
+    ) {
+
+        return (
+            start +
+            (end - start) *
+            amount
+        );
+    }
+
+
+    // ========================================================
+    // 14. SCROLL BEHAVIOR
+    // ========================================================
+
+    function updateScrollEffects() {
+
+
+        currentScroll =
+            lerp(
+                currentScroll,
+                targetScroll,
+                0.075
+            );
+
+
+        const scrollProgress =
+            Math.min(
+                currentScroll /
+                    window.innerHeight,
+                3
+            );
+
+
+        // ----------------------------------------------------
+        // SCALE
+        // ----------------------------------------------------
+
+        const scale =
+            lerp(
+                0.92,
+                0.46,
+                Math.min(
+                    scrollProgress,
+                    1
+                )
+            );
+
+
+        coreGroup.scale.setScalar(
+            scale
+        );
+
+
+        // ----------------------------------------------------
+        // VERTICAL POSITION
+        // ----------------------------------------------------
+
+        const targetY =
+            -scrollProgress *
+            0.72;
+
+
+        coreGroup.position.y =
+            lerp(
+                coreGroup.position.y,
+                targetY,
+                0.08
+            );
+
+
+        // ----------------------------------------------------
+        // HORIZONTAL POSITION
+        // ----------------------------------------------------
+
+        const targetX =
+            isMobile
+
+                ? 1.15
+
+                : 0.55 +
+                  scrollProgress *
+                  0.65;
+
+
+        coreGroup.position.x =
+            lerp(
+                coreGroup.position.x,
+                targetX,
+                0.08
+            );
+
+
+        // ----------------------------------------------------
+        // OPACITY
+        // ----------------------------------------------------
+
+        const fadeProgress =
+            Math.min(
+
+                Math.max(
+
+                    (
+                        scrollProgress -
+                        0.1
+                    ) / 0.9,
+
+                    0
+
+                ),
+
+                1
+            );
+
+
+        const opacity =
+            lerp(
+                1,
+                0.25,
+                fadeProgress
+            );
+
+
+        coreMaterial.opacity =
+            0.48 * opacity;
+
+
+        innerMaterial.opacity =
+            0.13 * opacity;
+
+
+        ringMaterial.opacity =
+            0.20 * opacity;
+
+
+        ring2Material.opacity =
+            0.13 * opacity;
+
+
+        particleMaterial.opacity =
+            0.32 * opacity;
+    }
+
+
+    // ========================================================
+    // 15. REDUCED MOTION
+    // ========================================================
+
+    const prefersReducedMotion =
+        window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+        ).matches;
+
+
+    // ========================================================
+    // 16. ANIMATION
+    // ========================================================
+
+    let elapsed = 0;
+
+
+    function animate(time) {
+
+        elapsed =
+            time * 0.001;
+
+
+        updateScrollEffects();
+
+
+        if (!prefersReducedMotion) {
+
+
+            core.rotation.x +=
+                0.0017;
+
+
+            core.rotation.y +=
+                0.003;
+
+
+            innerCore.rotation.x -=
+                0.001;
+
+
+            innerCore.rotation.y +=
+                0.0018;
+
+
+            ring.rotation.z +=
+                0.0014;
+
+
+            ring.rotation.y +=
+                0.0006;
+
+
+            ring2.rotation.x -=
+                0.0011;
+
+
+            ring2.rotation.z +=
+                0.0007;
+
+
+            particles.rotation.y +=
+                0.0004;
+
+
+            particles.rotation.x +=
+                0.00012;
+
+
+            const floatAmount =
+                Math.sin(
+                    elapsed * 0.75
+                ) * 0.0008;
+
+
+            coreGroup.position.y +=
+                floatAmount;
+        }
+
+
+        renderer.render(
+            scene,
+            camera
+        );
+    }
+
+
+    // ========================================================
+    // 17. START RENDER LOOP
+    // ========================================================
+
+    renderer.setAnimationLoop(
+        animate
+    );
+
+
+    // ========================================================
+    // 18. RESIZE
+    // ========================================================
+
+    function handleResize() {
+
+        const width =
+            container.clientWidth;
+
+
+        const height =
+            container.clientHeight;
+
+
+        if (
+            !width ||
+            !height
+        ) {
+            return;
+        }
+
+
+        camera.aspect =
+            width / height;
+
+
+        camera.updateProjectionMatrix();
+
+
+        renderer.setPixelRatio(
+
+            Math.min(
+                window.devicePixelRatio,
+                1.75
+            )
+        );
+
+
+        renderer.setSize(
+            width,
+            height,
+            false
+        );
+
+
+        updateResponsiveSettings();
+    }
+
+
+    window.addEventListener(
+        "resize",
+        handleResize
+    );
+
+
+    handleResize();
+
+
+    // ========================================================
+    // 19. PAUSE WHEN TAB HIDDEN
+    // ========================================================
+
+    document.addEventListener(
+        "visibilitychange",
+
+        () => {
+
+            if (document.visibilityState === "hidden") {
+
+                renderer.setAnimationLoop(null);
+
+            } else {
+
+                renderer.setAnimationLoop(animate);
+            }
+        }
+    );
+
+
+    // ========================================================
+    // 20. CLEANUP
+    // ========================================================
+
+    window.addEventListener(
+
+        "beforeunload",
+
+        () => {
+
+            renderer.setAnimationLoop(
+                null
+            );
+
+
+            coreGeometry.dispose();
+
+            coreMaterial.dispose();
+
+
+            innerGeometry.dispose();
+
+            innerMaterial.dispose();
+
+
+            ringGeometry.dispose();
+
+            ringMaterial.dispose();
+
+
+            ring2Geometry.dispose();
+
+            ring2Material.dispose();
+
+
+            particleGeometry.dispose();
+
+            particleMaterial.dispose();
+
+
+            renderer.dispose();
+        }
     );
 }
-
-
-// =========================================================
-// RESPONSIVE RESIZE
-// =========================================================
-
-function resizeRenderer() {
-
-    const width =
-        container.clientWidth;
-
-    const height =
-        container.clientHeight;
-
-    camera.aspect =
-        width / height;
-
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(
-        width,
-        height
-    );
-
-    renderer.setPixelRatio(
-        Math.min(window.devicePixelRatio, 2)
-    );
-}
-
-window.addEventListener(
-    "resize",
-    resizeRenderer
-);
-
-
-// =========================================================
-// START
-// =========================================================
-
-resizeRenderer();
-animate();

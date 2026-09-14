@@ -3,419 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Nova Core — AI Hardware Hub</title>
 
-    <meta
-        name="description"
-        content="Nova Core is a fictional next-generation AI hardware hub built for the future."
-    >
+    <meta name="description" content="Nova Core is a fictional next-generation AI hardware hub: dedicated on-device intelligence with 120 TOPS of local compute, encrypted memory, and sub-millisecond response.">
+    <meta name="theme-color" content="#05070a">
 
-    <!-- Google Font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Three.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
 
-    <!-- Background effects -->
-    <div class="background-grid"></div>
-    <div class="background-glow"></div>
+    <a class="skip-link" href="#main">Skip to content</a>
 
-    <!-- ================= NAVIGATION ================= -->
     <header class="navbar">
-        <a href="#" class="logo">
-            <span class="logo-orbit"></span>
-            NOVA<span>CORE</span>
+        <a href="#top" class="logo">
+            <span class="logo-mark" aria-hidden="true"></span>
+            Nova<span class="glow-text">Core</span>
         </a>
 
-        <nav class="nav-links">
+        <nav class="nav-links" aria-label="Primary">
             <a href="#features">Features</a>
             <a href="#technology">Technology</a>
             <a href="#specs">Specs</a>
         </nav>
 
-        <a href="#get-started" class="nav-button">
-            Get Started
-            <span>↗</span>
-        </a>
+        <a href="#get-started" class="btn btn-primary">Get started</a>
+
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
+            <span></span><span></span><span></span>
+        </button>
     </header>
 
+    <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile" hidden>
+        <a href="#features">Features</a>
+        <a href="#technology">Technology</a>
+        <a href="#specs">Specs</a>
+        <a href="#get-started" class="mobile-nav-cta">Get started</a>
+    </nav>
 
-    <!-- ================= HERO ================= -->
-    <main>
+    <main id="main">
 
-        <section class="hero">
+        <!-- ================= HERO ================= -->
+        <section class="hero" id="top" aria-labelledby="hero-heading">
+            <div class="container">
+                <div class="hero-content">
 
-            <div class="hero-content">
+                    <p class="status-pill">
+                        <span class="status-dot" aria-hidden="true"></span>
+                        System online
+                    </p>
 
-                <div class="status-pill">
-                    <span class="status-dot"></span>
-                    SYSTEM ONLINE
-                </div>
+                    <h1 id="hero-heading">
+                        Intelligence,
+                        <span>built into the hardware.</span>
+                    </h1>
 
-                <h1>
-                    Intelligence
-                    <span>Beyond Limits.</span>
-                </h1>
+                    <p class="hero-description">
+                        Nova Core is a dedicated AI hub that keeps inference, memory, and
+                        context on your own hardware — no round trip to the cloud for the
+                        things that matter.
+                    </p>
 
-                <p class="hero-description">
-                    Meet Nova Core — a next-generation AI hardware hub
-                    designed to bring powerful intelligence directly
-                    into your environment.
-                </p>
-
-                <div class="hero-actions">
-                    <a href="#get-started" class="primary-button">
-                        Explore Nova Core
-                        <span>→</span>
-                    </a>
-
-                    <a href="#technology" class="secondary-button">
-                        Discover Technology
-                    </a>
-                </div>
-
-                <div class="hero-stats">
-
-                    <div class="stat">
-                        <strong>120+</strong>
-                        <span>TOPS AI</span>
+                    <div class="hero-actions">
+                        <a href="#get-started" class="btn btn-primary">Explore Nova Core</a>
+                        <a href="#technology" class="btn btn-secondary">See how it works</a>
                     </div>
 
-                    <div class="stat-divider"></div>
+                    <dl class="hero-stats">
+                        <div class="stat">
+                            <dd class="stat-value">120 TOPS</dd>
+                            <dt class="stat-label">Local compute</dt>
+                        </div>
+                        <div class="stat">
+                            <dd class="stat-value">24/7</dd>
+                            <dt class="stat-label">Uptime</dt>
+                        </div>
+                        <div class="stat">
+                            <dd class="stat-value">0.4 ms</dd>
+                            <dt class="stat-label">Response time</dt>
+                        </div>
+                    </dl>
 
-                    <div class="stat">
-                        <strong>24/7</strong>
-                        <span>PROCESSING</span>
-                    </div>
-
-                    <div class="stat-divider"></div>
-
-                    <div class="stat">
-                        <strong>0.4ms</strong>
-                        <span>RESPONSE</span>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- Three.js mounts here -->
-            <div id="three-container"></div>
-
-            <div class="core-label">
-                <div class="label-line"></div>
-                <div>
-                    <span>CORE STATUS</span>
-                    <strong>ACTIVE</strong>
                 </div>
             </div>
 
-            <div class="scroll-indicator">
-                <span>SCROLL TO EXPLORE</span>
-                <div class="scroll-line"></div>
-            </div>
+            <div id="three-container" aria-hidden="true"></div>
 
+            <p class="scroll-indicator">
+                Scroll to explore
+                <span class="scroll-line" aria-hidden="true"></span>
+            </p>
         </section>
-
 
         <!-- ================= FEATURES ================= -->
-        <section id="features" class="features section">
+        <section id="features" class="section" aria-labelledby="features-heading">
+            <div class="container">
 
-            <div class="section-heading">
-
-                <div class="eyebrow">
-                    <span></span>
-                    CORE CAPABILITIES
+                <div class="section-header">
+                    <p class="section-eyebrow">Core capabilities</p>
+                    <h2 id="features-heading" class="section-title">
+                        Built for the <span class="glow-text">intelligent era</span>.
+                    </h2>
+                    <p class="section-description">
+                        Nova Core combines dedicated AI processing, adaptive intelligence,
+                        and an elegant physical interface into one compact system.
+                    </p>
                 </div>
 
-                <h2>
-                    Built for the
-                    <span>intelligent era.</span>
-                </h2>
+                <div class="features-grid">
 
-                <p>
-                    Nova Core combines dedicated AI processing,
-                    adaptive intelligence and an elegant physical
-                    interface into one compact system.
-                </p>
-
-            </div>
-
-
-            <div class="feature-grid">
-
-                <article class="feature-card large-card">
-
-                    <div class="feature-number">01</div>
-
-                    <div class="feature-icon">
-                        ◈
-                    </div>
-
-                    <h3>Neural Processing</h3>
-
-                    <p>
-                        Dedicated AI acceleration allows Nova Core
-                        to process complex workloads locally with
-                        minimal latency.
-                    </p>
-
-                    <div class="feature-visual neural-visual">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-
-                </article>
-
-
-                <article class="feature-card">
-
-                    <div class="feature-number">02</div>
-
-                    <div class="feature-icon">
-                        ◎
-                    </div>
-
-                    <h3>Ambient Intelligence</h3>
-
-                    <p>
-                        Nova Core understands its surroundings and
-                        continuously adapts to the environment around it.
-                    </p>
-
-                    <div class="ambient-rings">
-                        <i></i>
-                        <i></i>
-                        <i></i>
-                    </div>
-
-                </article>
-
-
-                <article class="feature-card">
-
-                    <div class="feature-number">03</div>
-
-                    <div class="feature-icon">
-                        ⚡
-                    </div>
-
-                    <h3>Instant Response</h3>
-
-                    <p>
-                        Optimized hardware and local inference deliver
-                        near-instant responses without unnecessary cloud
-                        round trips.
-                    </p>
-
-                    <div class="response-meter">
-                        <div class="meter-bar">
-                            <span></span>
+                    <article class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">◈</div>
+                        <div>
+                            <h3>Neural processing</h3>
+                            <p>Dedicated AI acceleration lets Nova Core handle complex workloads locally, with minimal latency.</p>
                         </div>
-                        <small>LATENCY: 0.4ms</small>
-                    </div>
+                    </article>
 
-                </article>
+                    <article class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">◎</div>
+                        <div>
+                            <h3>Ambient intelligence</h3>
+                            <p>Nova Core reads its surroundings and continuously adapts to the environment around it.</p>
+                        </div>
+                    </article>
 
+                    <article class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">⚡</div>
+                        <div>
+                            <h3>Instant response</h3>
+                            <p>Optimized hardware and local inference deliver near-instant answers, without an unnecessary cloud round trip.</p>
+                        </div>
+                    </article>
 
-                <article class="feature-card">
+                    <article class="feature-card">
+                        <div class="feature-icon" aria-hidden="true">⌁</div>
+                        <div>
+                            <h3>Secure by design</h3>
+                            <p>Sensitive processing stays close to home, with hardware-level security and private local inference.</p>
+                        </div>
+                    </article>
 
-                    <div class="feature-number">04</div>
-
-                    <div class="feature-icon">
-                        ⌁
-                    </div>
-
-                    <h3>Secure by Design</h3>
-
-                    <p>
-                        Sensitive processing stays close to home with
-                        hardware-level security and private local inference.
-                    </p>
-
-                    <div class="security-badge">
-                        <span>✓</span>
-                        LOCAL PROCESSING
-                    </div>
-
-                </article>
-
+                </div>
             </div>
-
         </section>
-
 
         <!-- ================= TECHNOLOGY ================= -->
-        <section id="technology" class="technology section">
+        <section id="technology" class="section" aria-labelledby="technology-heading">
+            <div class="container">
+                <div class="tech-card">
 
-            <div class="technology-card glass-card">
+                    <div class="tech-content">
+                        <p class="section-eyebrow">The Nova architecture</p>
+                        <h3 id="technology-heading">A computer that <span class="glow-text">thinks differently</span>.</h3>
+                        <p>
+                            Nova Core is built around a dedicated intelligence layer. Rather than
+                            treating AI as an application, Nova makes intelligence part of the
+                            hardware itself.
+                        </p>
 
-                <div class="tech-content">
-
-                    <div class="eyebrow">
-                        <span></span>
-                        THE NOVA ARCHITECTURE
+                        <ul class="tech-list">
+                            <li>Dedicated neural engine</li>
+                            <li>Encrypted local memory</li>
+                            <li>Adaptive environmental sensors</li>
+                        </ul>
                     </div>
 
-                    <h2>
-                        A computer that
-                        <span>thinks differently.</span>
-                    </h2>
-
-                    <p>
-                        Nova Core is engineered around a dedicated
-                        intelligence layer. Instead of treating AI
-                        as an application, Nova makes intelligence
-                        part of the hardware itself.
-                    </p>
-
-                    <div class="tech-list">
-
-                        <div>
-                            <span>01</span>
-                            <p>Dedicated Neural Engine</p>
-                        </div>
-
-                        <div>
-                            <span>02</span>
-                            <p>Encrypted Local Memory</p>
-                        </div>
-
-                        <div>
-                            <span>03</span>
-                            <p>Adaptive Environmental Sensors</p>
-                        </div>
-
+                    <div class="tech-visual">
+                        <div class="tech-orb" aria-hidden="true"></div>
                     </div>
 
                 </div>
-
-                <div class="tech-orb">
-                    <div class="orb-core"></div>
-                    <div class="orb-ring ring-one"></div>
-                    <div class="orb-ring ring-two"></div>
-                    <div class="orb-ring ring-three"></div>
-                </div>
-
             </div>
-
         </section>
-
 
         <!-- ================= SPECS ================= -->
-        <section id="specs" class="specs section">
+        <section id="specs" class="section" aria-labelledby="specs-heading">
+            <div class="container">
 
-            <div class="section-heading centered">
-
-                <div class="eyebrow">
-                    <span></span>
-                    TECHNICAL PROFILE
+                <div class="section-header">
+                    <p class="section-eyebrow">Technical profile</p>
+                    <h2 id="specs-heading" class="section-title">
+                        Small footprint. <span class="glow-text">Massive intelligence.</span>
+                    </h2>
                 </div>
 
-                <h2>
-                    Small footprint.
-                    <span>Massive intelligence.</span>
-                </h2>
-
+                <dl class="specs-grid">
+                    <div class="spec">
+                        <span class="spec-label">AI compute</span>
+                        <span class="spec-value">120 TOPS</span>
+                        <span class="spec-detail">INT8, on-device</span>
+                    </div>
+                    <div class="spec">
+                        <span class="spec-label">Memory</span>
+                        <span class="spec-value">64 GB</span>
+                        <span class="spec-detail">Unified, encrypted</span>
+                    </div>
+                    <div class="spec">
+                        <span class="spec-label">Storage</span>
+                        <span class="spec-value">4 TB</span>
+                        <span class="spec-detail">NVMe SSD</span>
+                    </div>
+                    <div class="spec">
+                        <span class="spec-label">Connectivity</span>
+                        <span class="spec-value">Wi-Fi 7</span>
+                        <span class="spec-detail">+ Bluetooth 5.4</span>
+                    </div>
+                </dl>
             </div>
-
-            <div class="spec-grid">
-
-                <div class="spec-card">
-                    <span>AI COMPUTE</span>
-                    <strong>120 TOPS</strong>
-                </div>
-
-                <div class="spec-card">
-                    <span>MEMORY</span>
-                    <strong>64 GB</strong>
-                </div>
-
-                <div class="spec-card">
-                    <span>STORAGE</span>
-                    <strong>4 TB</strong>
-                </div>
-
-                <div class="spec-card">
-                    <span>CONNECTIVITY</span>
-                    <strong>Wi-Fi 7</strong>
-                </div>
-
-            </div>
-
         </section>
 
-
         <!-- ================= CTA ================= -->
-        <section id="get-started" class="cta section">
-
-            <div class="cta-card">
-
-                <div class="cta-glow"></div>
-
-                <div class="eyebrow">
-                    <span></span>
-                    THE FUTURE IS READY
+        <section id="get-started" class="cta" aria-labelledby="cta-heading">
+            <div class="container">
+                <div class="cta-content">
+                    <p class="section-eyebrow">The future is ready</p>
+                    <h2 id="cta-heading">Welcome to <span class="glow-text">Nova.</span></h2>
+                    <p>Intelligence should feel effortless. Experience the next generation of personal AI hardware.</p>
+                    <div class="cta-actions">
+                        <button class="btn btn-primary" type="button">Request early access</button>
+                    </div>
                 </div>
-
-                <h2>
-                    Welcome to
-                    <span>Nova.</span>
-                </h2>
-
-                <p>
-                    Intelligence should feel effortless.
-                    Experience the next generation of personal AI hardware.
-                </p>
-
-                <button class="primary-button cta-button">
-                    Request Early Access
-                    <span>→</span>
-                </button>
-
             </div>
-
         </section>
 
     </main>
 
-
-    <!-- ================= FOOTER ================= -->
     <footer>
-
-        <div class="footer-logo">
-            NOVA<span>CORE</span>
+        <div class="container footer-inner">
+            <p class="footer-copy">© 2026 Nova Core Technologies. Fictional concept.</p>
+            <div class="footer-links">
+                <a href="#features">Features</a>
+                <a href="#technology">Technology</a>
+                <a href="#specs">Specs</a>
+            </div>
         </div>
-
-        <p>
-            © 2026 Nova Core Technologies. Fictional concept.
-        </p>
-
-        <div class="footer-status">
-            <span></span>
-            ALL SYSTEMS NOMINAL
-        </div>
-
     </footer>
 
-
-    <!-- Custom JavaScript -->
-    <script src="script.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
